@@ -1,3 +1,3 @@
 ﻿namespace Server.Models;
 
-public record UserConnection(string Username, string Room);
+public record UserConnection(string Username, string RoomId);
