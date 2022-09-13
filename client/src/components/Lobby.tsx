@@ -4,7 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { buildConnection } from './../utils/hubUtils';
 
 interface LobbyProps {
-    onJoinedRoom: Function
+    onJoinedRoom: (success: boolean) => void
 }
 
 const Lobby = (props: LobbyProps) => {
@@ -25,9 +25,10 @@ const Lobby = (props: LobbyProps) => {
             await connection.start();
             await connection.invoke("JoinRoom", { username, roomId: room });
 
-            props.onJoinedRoom();
+            props.onJoinedRoom(true);
         } catch (e) {
             console.log(e);
+            props.onJoinedRoom(false);
         }
     }
 

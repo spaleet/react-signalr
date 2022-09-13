@@ -3,8 +3,12 @@ import { Box, Container } from '@mui/material';
 
 const App = () => {
 
-    const joinedRoom = () => {
-        alert("Successfully joined room");
+    const joinedRoom = (success: boolean) => {
+        if(success){
+            alert("Successfully joined room");
+        } else {
+            alert("Error : couldn't join room");
+        }
     }
 
     return (
