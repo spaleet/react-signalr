@@ -1,7 +1,7 @@
 import { Grid, Divider, Box, Button, TextField, Paper, Typography, Avatar } from '@mui/material';
 import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
-import { buildConnection } from './../utils/hubUtils';
+import { buildConnection } from '../utils/hubUtils';
 
 interface LobbyProps {
     onJoinedRoom: (success: boolean) => void

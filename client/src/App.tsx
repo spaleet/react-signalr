@@ -1,4 +1,4 @@
-import { Lobby } from './components/_index';
+import { Lobby } from '@pages';
 import { Box, Container } from '@mui/material';
 
 const App = () => {
