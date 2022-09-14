@@ -27,7 +27,7 @@ const App = () => {
                 {connection &&
                     <>
                         <Lobby connection={connection} />
-                        <Chats connection={connection} />
+                        {/* <Chats connection={connection} /> */}
                     </>
                 }
 
