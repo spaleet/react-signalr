@@ -3,11 +3,13 @@ import { Box, Container, Grid } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { buildConnection, startConnection } from './utils/hubUtils';
+import { Message } from './models/Message';
 
 const App = () => {
 
     const [connection, setConnection] = useState<HubConnection>();
     const [inRoom, setInRoom] = useState(false);
+    const [messages, setMessages] = useState<Message[]>([]);
 
     useEffect(() => {
         const newConnection = buildConnection();
@@ -16,9 +18,18 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        if (connection) {
-            startConnection(connection);
+
+        const startAndConfigure = async () => {
+            if (connection) {
+                await startConnection(connection);
+                connection.on("ReceiveMessage", (username, message) => {
+                    setMessages(messages => [...messages, { username, message }]);
+                });
+            
+            }
         }
+
+        startAndConfigure();
     }, [connection]);
 
     return (
@@ -32,7 +43,7 @@ const App = () => {
                         <>
                             {!inRoom
                                 ? <Lobby connection={connection} onJoined={setInRoom} />
-                                : <Chats connection={connection} />
+                                : <Chats messages={messages} />
                             }
                         </>
                     }
