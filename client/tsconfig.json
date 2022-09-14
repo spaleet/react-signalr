@@ -18,12 +18,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@pages": ["./pages/_index"]
-    }
+    "jsx": "react-jsx"
   },
   "include": [
-    "src"
+    "./src"
   ]
 }

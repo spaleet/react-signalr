@@ -1,10 +1,10 @@
 import { Grid, Divider, Box, Button, TextField, Paper, Typography, Avatar } from '@mui/material';
 import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
-import { buildConnection } from '../utils/hubUtils';
+import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 
 interface LobbyProps {
-    onJoinedRoom: (success: boolean) => void
+    connection: HubConnection
 }
 
 const Lobby = (props: LobbyProps) => {
@@ -16,19 +16,9 @@ const Lobby = (props: LobbyProps) => {
         e.preventDefault();
 
         try {
-            const connection = buildConnection();
-
-            connection.on("ReceiveMessage", (user, message) => {
-                console.log("Message : ", message);
-            });
-
-            await connection.start();
-            await connection.invoke("JoinRoom", { username, roomId: room });
-
-            props.onJoinedRoom(true);
+            await props.connection.invoke("JoinRoom", { username, roomId: room });
         } catch (e) {
             console.log(e);
-            props.onJoinedRoom(false);
         }
     }
 
