@@ -30,7 +30,8 @@ const Lobby = (props: LobbyProps) => {
 
             <Paper sx={{
                 p: 3, boxShadow: 2, display: 'flex', flexDirection: 'column',
-                width: { xs: '100%', sm: '100%', md: '430px' }, alignItems: 'center'
+                width: { xs: '100%', sm: '100%', md: '430px' }, alignItems: 'center',
+                borderRadius: '1.7rem'
             }} >
 
                 <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
