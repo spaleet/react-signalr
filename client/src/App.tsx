@@ -1,5 +1,5 @@
 import { Lobby, Chats } from './pages/_index';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Grid } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { buildConnection, startConnection } from './utils/hubUtils';
@@ -24,16 +24,19 @@ const App = () => {
     return (
         <Box sx={{ width: "100%", height: '100vh' }}>
             <Container>
-
-                {connection &&
-                    <>
-                        {!inRoom 
-                            ? <Lobby connection={connection} onJoined={setInRoom} />
-                            : <Chats connection={connection} />
-                        }
-                    </>
-                }
-
+                <Grid sx={{
+                    minWidth: "100%", minHeight: "100vh", padding: "20px",
+                    display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
+                }}>
+                    {connection &&
+                        <>
+                            {!inRoom
+                                ? <Lobby connection={connection} onJoined={setInRoom} />
+                                : <Chats connection={connection} />
+                            }
+                        </>
+                    }
+                </Grid>
             </Container>
         </Box>
     )
