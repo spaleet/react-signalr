@@ -30,7 +30,7 @@ const Chats = (props: ChatsProps) => {
       width: "100%", alignItems: 'center',
       borderRadius: '1.7rem', minHeight: "90vh"
     }} >
-      <Typography variant="h5">
+      <Typography variant="h5" color="primary.main">
         Chats are active
       </Typography>
 

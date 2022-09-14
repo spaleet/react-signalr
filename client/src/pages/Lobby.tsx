@@ -36,12 +36,11 @@ const Lobby = (props: LobbyProps) => {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <SendIcon />
             </Avatar>
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant="h5" color="primary.main">
                 Join a room
             </Typography>
 
-            <ChatDivider width="100%" />
-
+            <ChatDivider width="62%" />
 
             <Box
                 component="form"
