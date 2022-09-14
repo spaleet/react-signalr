@@ -1,17 +1,18 @@
-import { HubConnectionState } from '@microsoft/signalr';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
+import { Message } from '../models/Message';
 
 interface ChatsProps {
   connection: HubConnection
 }
 
-
 const Chats = (props: ChatsProps) => {
+
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     props.connection.on("ReceiveMessage", (user, message) => {
-      console.log("Message Received: ", message);
+      setMessages(messages => [...messages, { username: user, message }]);
     });
   }, [props.connection]);
 

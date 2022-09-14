@@ -5,6 +5,7 @@ import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 
 interface LobbyProps {
     connection: HubConnection
+    onJoined: (success: boolean) => void
 }
 
 const Lobby = (props: LobbyProps) => {
@@ -17,8 +18,10 @@ const Lobby = (props: LobbyProps) => {
 
         try {
             await props.connection.invoke("JoinRoom", { username, roomId: room });
+            props.onJoined(true);
         } catch (e) {
-            console.log(e);
+            console.log("Join room failed. : ", e);
+            props.onJoined(false);
         }
     }
 

@@ -7,6 +7,7 @@ import { buildConnection, startConnection } from './utils/hubUtils';
 const App = () => {
 
     const [connection, setConnection] = useState<HubConnection>();
+    const [inRoom, setInRoom] = useState(false);
 
     useEffect(() => {
         const newConnection = buildConnection();
@@ -26,8 +27,10 @@ const App = () => {
 
                 {connection &&
                     <>
-                        <Lobby connection={connection} />
-                        {/* <Chats connection={connection} /> */}
+                        {!inRoom 
+                            ? <Lobby connection={connection} onJoined={setInRoom} />
+                            : <Chats connection={connection} />
+                        }
                     </>
                 }
 
