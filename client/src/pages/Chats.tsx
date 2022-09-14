@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { Message } from '../models/Message';
-import MessageContainer from '../components/MessageContainer';
+import { MessageContainer, ChatDivider } from '../components/_index';
 import { Paper, Divider, Typography } from '@mui/material';
 
 interface ChatsProps {
@@ -34,7 +34,7 @@ const Chats = (props: ChatsProps) => {
         Chats are active
       </Typography>
 
-      <Divider sx={{ mt: 1, mb: 2, width: "50%", borderColor: "#3759d5" }} />
+      <ChatDivider width="64%" />
 
       <MessageContainer messages={messages} />
     </Paper>

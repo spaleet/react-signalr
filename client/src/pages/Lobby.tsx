@@ -1,7 +1,8 @@
-import { Divider, Box, Button, TextField, Paper, Typography, Avatar } from '@mui/material';
+import { Box, Button, TextField, Paper, Typography, Avatar } from '@mui/material';
 import React, { useState } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
+import ChatDivider from '../components/ChatDivider';
 
 interface LobbyProps {
     connection: HubConnection
@@ -39,7 +40,8 @@ const Lobby = (props: LobbyProps) => {
                 Join a room
             </Typography>
 
-            <Divider variant='fullWidth' sx={{ mt: 1, mb: 2 }} />
+            <ChatDivider width="100%" />
+
 
             <Box
                 component="form"
