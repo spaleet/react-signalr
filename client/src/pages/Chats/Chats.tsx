@@ -1,37 +1,57 @@
 import { Message } from '../../models/Message';
-import { ChatDivider } from '../../components/_index';
-import { Paper, Typography, Grid } from '@mui/material';
-import styled from '@emotion/styled';
+import { Paper, Typography, Grid, Box, Divider } from '@mui/material';
 import MessageItem from './components/MessageItem';
+import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
+import SendMessage from './components/SendMessage';
+import Rooms from './components/Rooms';
 
 const randomBool = () => {
   return Math.random() < 0.5;
 }
 
 interface ChatsProps {
+  connection: HubConnection
   messages: Message[]
 }
 
 const Chats = (props: ChatsProps) => {
 
+  const onSendMessage = async (message: Message) => {
+    try {
+      await props.connection.invoke("SendMessage", message)
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
-    <Paper sx={{
-      p: 3, boxShadow: 2, display: 'flex', flexDirection: 'column',
-      width: "100%", alignItems: 'center',
-      borderRadius: '1.7rem', minHeight: "90vh"
+    <Grid container component={Paper} direction="row" sx={{
+      p: 3, boxShadow: 2, 
+      width: "100%", 
+      borderRadius: '1.3rem', height: '80vh'
     }} >
-      <Typography variant="h5" color="primary.main">
-        Chats are active
-      </Typography>
-
-      <ChatDivider width="64%" />
-
-      <Grid container direction="column" padding="10px">
-        {props.messages.map((item, index) => (
-          <MessageItem key={index} msg={item} sent={randomBool()} />
-        ))}
+      <Grid item xs={12} sx={{alignItems: 'center'}}>
+        <Typography variant="h5" color="primary.main">
+          Chats are active
+        </Typography>
       </Grid>
-    </Paper>
+
+      <Rooms />
+
+      <Grid item xs={9}>
+        <Box sx={{ height: '70vh', overflow: 'auto' }}>
+          {props.messages.map((item, index) => (
+            <MessageItem key={index} msg={item} sent={randomBool()} />
+          ))}
+        </Box>
+
+        <Divider />
+
+        <SendMessage onSendMessage={onSendMessage} />
+
+      </Grid>
+
+    </Grid>
   )
 }
 

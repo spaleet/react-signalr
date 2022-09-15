@@ -8,12 +8,12 @@
 .msg {
     border-radius: 20px;
     padding: 8px 15px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
     display: inline-block;
     max-width: 255px;
     word-wrap: break-word;
-    line-height: 24px;
+    line-height: 24px !important;
 }
 
 .sent {

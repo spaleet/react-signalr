@@ -1,5 +1,5 @@
 import { Message } from './../../../models/Message';
-import { Typography } from '@mui/material';
+import { Typography, Grid } from '@mui/material';
 import "./MessageItem.css"
 
 interface MessageItemProps {
@@ -8,13 +8,21 @@ interface MessageItemProps {
 }
 
 const MessageItem = (props: MessageItemProps) => {
-    
+
     const classes = `msg ${props.sent ? 'sent' : 'received'}`
 
     return (
-        <p className={classes}>
-            {props.msg.message}
-        </p>
+        <Grid container>
+            <Grid item xs={12}>
+                <Typography className={classes}>
+                    {props.msg.message}
+                </Typography>
+            </Grid>
+            <Grid item xs={12}>
+                <Typography variant='body2'>{props.msg.username}</Typography>
+            </Grid>
+        </Grid>
+
     )
 }
 

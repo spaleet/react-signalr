@@ -9,8 +9,6 @@ const defaultData: Message[] = [
     { username: "sfds", message: "dfd" },
     { username: "gff", message: "dfd" },
     { username: "sdf", message: "dfd" },
-    { username: "fgh", message: "dfd" },
-    { username: "fgh", message: "dfd" },
 ]
 
 const App = () => {
@@ -43,7 +41,7 @@ const App = () => {
     return (
         <Box sx={{ width: "100%", height: '100vh' }}>
             <Container>
-                <Grid sx={{
+                <Box sx={{
                     minWidth: "100%", minHeight: "100vh", padding: "20px",
                     display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
                 }}>
@@ -51,11 +49,11 @@ const App = () => {
                         <>
                             {!inRoom
                                 ? <Lobby connection={connection} onJoined={setInRoom} />
-                                : <Chats messages={messages} />
+                                : <Chats connection={connection} messages={messages} />
                             }
                         </>
                     }
-                </Grid>
+                </Box>
             </Container>
         </Box>
     )
