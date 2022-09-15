@@ -5,11 +5,19 @@ import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { buildConnection, startConnection } from './utils/hubUtils';
 import { Message } from './models/Message';
 
+const defaultData: Message[] = [
+    { username: "sfds", message: "dfd" },
+    { username: "gff", message: "dfd" },
+    { username: "sdf", message: "dfd" },
+    { username: "fgh", message: "dfd" },
+    { username: "fgh", message: "dfd" },
+]
+
 const App = () => {
 
     const [connection, setConnection] = useState<HubConnection>();
     const [inRoom, setInRoom] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<Message[]>(defaultData);
 
     useEffect(() => {
         const newConnection = buildConnection();

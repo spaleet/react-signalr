@@ -1,6 +1,12 @@
-import { Message } from '../models/Message';
-import { ChatDivider } from '../components/_index';
+import { Message } from '../../models/Message';
+import { ChatDivider } from '../../components/_index';
 import { Paper, Typography, Grid } from '@mui/material';
+import styled from '@emotion/styled';
+import MessageItem from './components/MessageItem';
+
+const randomBool = () => {
+  return Math.random() < 0.5;
+}
 
 interface ChatsProps {
   messages: Message[]
@@ -20,11 +26,9 @@ const Chats = (props: ChatsProps) => {
 
       <ChatDivider width="64%" />
 
-      <Grid>
+      <Grid container direction="column" padding="10px" sx={{background: "#f00"}}>
         {props.messages.map((item, index) => (
-          <div key={index}>
-            {item.message}
-          </div>
+          <MessageItem key={index} msg={item} sent={randomBool()} />
         ))}
       </Grid>
     </Paper>

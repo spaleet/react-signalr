@@ -1,2 +1,2 @@
-export { default as Lobby } from './Lobby'
-export { default as Chats } from './Chats'
+export { default as Lobby } from './Lobby/Lobby'
+export { default as Chats } from './Chats/Chats'
