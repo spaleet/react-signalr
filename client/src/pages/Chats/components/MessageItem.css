@@ -1,26 +1,19 @@
 :root {
-    --send-bg: #0B93F6;
-    --send-color: white;
-    --receive-bg: #E5E5EA;
-    --receive-text: black;
+    --sent-bg: #0B93F6;
+    --sent-color: white;
+    --received-bg: #E5E5EA;
+    --received-text: black;
 }
 
 .msg {
+    border-radius: 20px;
+    padding: 8px 15px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    display: inline-block;
     max-width: 255px;
     word-wrap: break-word;
-    margin-bottom: 12px;
     line-height: 24px;
-    position: relative;
-    padding: 10px 20px;
-    border-radius: 25px;
-}
-
-.msg::after,
-.msg::content {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    height: 25px;
 }
 
 .sent {
@@ -29,36 +22,67 @@
     align-self: flex-end;
 }
 
-.sent::before {
-    right: -7px;
-    width: 20px;
-    background-color: var(--sent-bg);
-    border-bottom-left-radius: 16px 14px;
+.sent {
+    color: var(--sent-color);
+    background: var(--sent-bg);
+    align-self: flex-end;
+    margin-left: 25%;
+    position: relative;
 }
 
-.sent::after {
-    right: -26px;
-    width: 26px;
-    background-color: "white";
+.sent:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    right: -7px;
+    height: 20px;
+    width: 20px;
+    background: var(--sent-bg);
+    border-bottom-left-radius: 15px;
+}
+
+.sent:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
     border-bottom-left-radius: 10px;
 }
 
+
 .received {
     background: var(--received-bg);
-    color: black;
+    color: var(--received-text);
     align-self: flex-start;
+    margin-right: 25%;
+    position: relative;
 }
 
-.received::before {
+.received:before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
     left: -7px;
+    height: 20px;
     width: 20px;
-    background-color: var(--received-bg);
-    border-bottom-right-radius: 16px 14px;
+    background: var(--received-bg);
+    border-bottom-right-radius: 15px;
 }
 
-.received::after {
-    left: -26px;
-    width: 26px;
-    background-color: "white";
+.received:after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: -10px;
+    width: 10px;
+    height: 20px;
+    background: white;
     border-bottom-right-radius: 10px;
 }

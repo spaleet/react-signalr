@@ -26,7 +26,7 @@ const Chats = (props: ChatsProps) => {
 
       <ChatDivider width="64%" />
 
-      <Grid container direction="column" padding="10px" sx={{background: "#f00"}}>
+      <Grid container direction="column" padding="10px">
         {props.messages.map((item, index) => (
           <MessageItem key={index} msg={item} sent={randomBool()} />
         ))}

@@ -12,9 +12,9 @@ const MessageItem = (props: MessageItemProps) => {
     const classes = `msg ${props.sent ? 'sent' : 'received'}`
 
     return (
-        <Typography className={classes}>
+        <p className={classes}>
             {props.msg.message}
-        </Typography>
+        </p>
     )
 }
 
