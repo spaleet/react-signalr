@@ -19,14 +19,7 @@
 .sent {
     color: var(--sent-color);
     background: var(--sent-bg);
-    align-self: flex-end;
-}
-
-.sent {
-    color: var(--sent-color);
-    background: var(--sent-bg);
-    align-self: flex-end;
-    margin-left: 25%;
+    margin-right: 3px !important;
     position: relative;
 }
 
@@ -58,8 +51,7 @@
 .received {
     background: var(--received-bg);
     color: var(--received-text);
-    align-self: flex-start;
-    margin-right: 25%;
+    margin-left: 3px !important;
     position: relative;
 }
 

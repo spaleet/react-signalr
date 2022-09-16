@@ -26,20 +26,21 @@ const Chats = (props: ChatsProps) => {
 
   return (
     <Grid container component={Paper} direction="row" sx={{
-      p: 3, boxShadow: 2, 
-      width: "100%", 
+      p: 3, boxShadow: 2,
+      width: "100%",
       borderRadius: '1.3rem', height: '80vh'
-    }} >
-      <Grid item xs={12} sx={{alignItems: 'center'}}>
+    }} spacing={2}>
+
+      <Grid item xs={12} sx={{ alignItems: 'center', justifyContent: 'center' }}>
         <Typography variant="h5" color="primary.main">
-          Chats are active
+          Chats!
         </Typography>
       </Grid>
 
       <Rooms />
 
       <Grid item xs={9}>
-        <Box sx={{ height: '70vh', overflow: 'auto' }}>
+        <Box sx={{ height: '58vh', overflowY: 'auto', overflowX: 'hidden' }}>
           {props.messages.map((item, index) => (
             <MessageItem key={index} msg={item} sent={randomBool()} />
           ))}

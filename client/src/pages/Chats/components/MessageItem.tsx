@@ -12,15 +12,11 @@ const MessageItem = (props: MessageItemProps) => {
     const classes = `msg ${props.sent ? 'sent' : 'received'}`
 
     return (
-        <Grid container>
-            <Grid item xs={12}>
-                <Typography className={classes}>
+        <Grid container direction="column" sx={{alignItems: props.sent ? 'flex-end' : 'flex-start'}}>
+            <Typography className={classes}>
                     {props.msg.message}
-                </Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <Typography variant='body2'>{props.msg.username}</Typography>
-            </Grid>
+            </Typography>
+            <Typography variant='body2'>{props.msg.username}</Typography>
         </Grid>
 
     )
