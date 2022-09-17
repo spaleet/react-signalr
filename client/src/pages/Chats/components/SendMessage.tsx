@@ -25,11 +25,15 @@ const SendMessage = (props: SendMessageProps) => {
         >
             <Grid item xs={11}>
                 <TextField
+                    multiline maxRows={4} required
                     label="Message" fullWidth
-                    onChange={e => setMessage(e.target.value)} />
+                    onChange={e => setMessage(e.target.value)}
+                    value={message} />
             </Grid>
-            <Grid xs={1}>
-                <Fab color="primary" aria-label="add"><SendIcon /></Fab>
+            <Grid xs={1} sx={{display: 'flex', justifyContent: "center"}} alignItems="center">
+                <Fab color="primary" size="small">
+                    <SendIcon sx={{fontSize: '20px'}} />
+                </Fab>
             </Grid>
         </Grid>
     )
