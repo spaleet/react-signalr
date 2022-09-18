@@ -4,17 +4,17 @@ import { Grid, Box, TextField, Fab } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 interface SendMessageProps {
-    onSendMessage: (message: Message) => void
+    onSendMessage: (message: string) => void
 }
 
 const SendMessage = (props: SendMessageProps) => {
 
-    const [message, setMessage] = useState("dfgd")
+    const [message, setMessage] = useState("")
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        props.onSendMessage({ username: "sd", message });
+        props.onSendMessage(message);
     }
 
     return (
@@ -31,7 +31,7 @@ const SendMessage = (props: SendMessageProps) => {
                     value={message} />
             </Grid>
             <Grid xs={1} sx={{display: 'flex', justifyContent: "center"}} alignItems="center">
-                <Fab color="primary" size="small">
+                <Fab color="primary" size="small" type='submit'>
                     <SendIcon sx={{fontSize: '20px'}} />
                 </Fab>
             </Grid>

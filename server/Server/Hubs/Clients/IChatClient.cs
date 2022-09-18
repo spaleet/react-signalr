@@ -1,4 +1,4 @@
-﻿namespace Server.Hubs;
+﻿namespace Server.Hubs.Clients;
 
 public interface IChatClient
 {

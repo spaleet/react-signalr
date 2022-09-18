@@ -16,8 +16,10 @@ interface ChatsProps {
 
 const Chats = (props: ChatsProps) => {
 
-  const onSendMessage = async (message: Message) => {
+  const onSendMessage = async (message: string) => {
     try {
+      console.log("here");
+      
       await props.connection.invoke("SendMessage", message)
     } catch (e) {
       console.log(e);
