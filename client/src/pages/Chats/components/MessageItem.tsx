@@ -1,6 +1,5 @@
 import { Message } from './../../../models/Message';
 import { Typography, Grid } from '@mui/material';
-import "./MessageItem.css"
 
 interface MessageItemProps {
     msg: Message

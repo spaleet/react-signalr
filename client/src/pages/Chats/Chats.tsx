@@ -41,8 +41,8 @@ const Chats = (props: ChatsProps) => {
 
       <Rooms />
 
-      <Grid item xs={9} sx={{ border: '1px solid rgba(0, 0, 0, 0.12)', paddingRight: "16px" }}>
-        <Box sx={{ height: '58vh', overflowY: 'auto', overflowX: 'hidden' }}>
+      <Grid item xs={9} sx={{ border: '1px solid rgba(0, 0, 0, 0.12)', paddingTop: '0px !important' }}>
+        <Box sx={{ height: '58vh' }} className="message-container">
           {props.messages.map((item, index) => (
             <MessageItem key={index} msg={item} sent={randomBool()} />
           ))}

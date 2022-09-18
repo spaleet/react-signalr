@@ -78,3 +78,24 @@
     background: white;
     border-bottom-right-radius: 10px;
 }
+
+.message-container {
+    padding-top: 16px;
+    padding-right: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.message-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.message-container::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: rgb(157 157 157 / 40%);
+}
+
+.message-container::-webkit-scrollbar-thumb {
+    background-color: #8ba7bb;
+    border-radius: 10px;
+}

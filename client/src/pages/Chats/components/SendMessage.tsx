@@ -15,6 +15,7 @@ const SendMessage = (props: SendMessageProps) => {
         e.preventDefault();
 
         props.onSendMessage(message);
+        setMessage("")
     }
 
     return (
@@ -30,9 +31,9 @@ const SendMessage = (props: SendMessageProps) => {
                     onChange={e => setMessage(e.target.value)}
                     value={message} />
             </Grid>
-            <Grid xs={1} sx={{display: 'flex', justifyContent: "center"}} alignItems="center">
+            <Grid xs={1} sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                 <Fab color="primary" size="small" type='submit'>
-                    <SendIcon sx={{fontSize: '20px'}} />
+                    <SendIcon sx={{ fontSize: '20px' }} />
                 </Fab>
             </Grid>
         </Grid>

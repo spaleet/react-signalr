@@ -21,17 +21,14 @@ const App = () => {
 
     useEffect(() => {
 
-        const startAndConfigure = async () => {
-            if (connection) {
-                await startConnection(connection);
-                connection.on("ReceiveMessage", (username, message) => {
-                    setMessages(messages => [...messages, { username, message }]);
+        if (connection) {
+            startConnection(connection)
+                .then(() => {
+                    connection.on("ReceiveMessage", (username, message) => {
+                        setMessages(messages => [...messages, { username, message }]);
+                    });
                 });
-
-            }
         }
-
-        startAndConfigure();
     }, [connection]);
 
     return (
