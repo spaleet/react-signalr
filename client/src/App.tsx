@@ -13,10 +13,15 @@ const App = () => {
 
     const [errorAlertOpen, setErrorAlertOpen] = useState(false);
 
-    useEffect(() => {
+    const startNewConnection = () => {
         const newConnection = buildConnection();
 
         setConnection(newConnection);
+        setMessages([]);
+    }
+
+    useEffect(() => {
+        startNewConnection();
     }, []);
 
     useEffect(() => {
@@ -26,6 +31,11 @@ const App = () => {
                 .then(() => {
                     connection.on("ReceiveMessage", (username, message) => {
                         setMessages(messages => [...messages, { username, message }]);
+                    });
+
+                    connection.onclose(() => {
+                        setInRoom(false)
+                        startNewConnection();
                     });
                 });
         }

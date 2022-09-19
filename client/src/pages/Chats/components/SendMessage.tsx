@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Message } from '../../../models/Message'
-import { Grid, Box, TextField, Fab } from '@mui/material';
+import { Grid, TextField, Fab } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 interface SendMessageProps {
