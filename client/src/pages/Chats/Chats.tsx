@@ -1,24 +1,24 @@
 import { Message } from '../../models/Message';
-import { Paper, Typography, Grid, Box, Divider, Button, IconButton } from '@mui/material';
+import { Paper, Typography, Grid, Box, Divider, IconButton } from '@mui/material';
 import MessageItem from './components/MessageItem';
-import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import SendMessage from './components/SendMessage';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
+import { HubContext } from '../../contexts/HubContext';
 
 interface ChatsProps {
-  connection: HubConnection
   messages: Message[]
 }
 
 const Chats = (props: ChatsProps) => {
 
+  const hubCtx = useContext(HubContext);
   const userCtx = useContext(UserContext);
 
   const onSendMessage = async (message: string) => {
     try {
-      await props.connection.invoke("SendMessage", message)
+      await hubCtx?.connection?.invoke("SendMessage", message)
     } catch (e) {
       console.log("Send Message failed! ERROR : ", e);
     }
@@ -26,7 +26,7 @@ const Chats = (props: ChatsProps) => {
 
   const leaveRoom = async () => {
     try {
-      await props.connection.stop();
+      await hubCtx?.connection?.stop();
     } catch (e) {
       console.log("Leave room failed! ERROR : ", e);
     }

@@ -1,47 +1,27 @@
 import { Lobby, Chats } from './pages/_index';
 import { Box, Container, Grid, Snackbar, Alert } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
-import { buildConnection, startConnection } from './utils/hubUtils';
+import { useState, useEffect, useContext } from 'react';
 import { Message } from './models/Message';
 import { UserContextProvider } from './contexts/UserContext';
+import { HubContext } from './contexts/HubContext';
 
 const App = () => {
 
-    const [connection, setConnection] = useState<HubConnection>();
+    const hubCtx = useContext(HubContext);
+
     const [inRoom, setInRoom] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
-    const [username, setUsername] = useState("");
 
     const [errorAlertOpen, setErrorAlertOpen] = useState(false);
 
-    const startNewConnection = () => {
-        const newConnection = buildConnection();
-
-        setConnection(newConnection);
-        setMessages([]);
-    }
-
-    useEffect(() => {
-        startNewConnection();
-    }, []);
-
     useEffect(() => {
 
-        if (connection) {
-            startConnection(connection)
-                .then(() => {
-                    connection.on("ReceiveMessage", (username, message) => {
-                        setMessages(messages => [...messages, { username, message }]);
-                    });
-
-                    connection.onclose(() => {
-                        setInRoom(false)
-                        startNewConnection();
-                    });
-                });
+        if (hubCtx?.connectionStarted) {
+            hubCtx?.connection?.onclose(() => {
+                setInRoom(false)
+            });
         }
-    }, [connection]);
+    }, [hubCtx?.connection]);
 
     return (
         <>
@@ -52,10 +32,10 @@ const App = () => {
                             minWidth: "100%", minHeight: "100vh", padding: "20px",
                             display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
                         }}>
-                            {connection &&
+                            {hubCtx?.connection !== null &&
                                 <>
                                     {!inRoom
-                                        ? <Lobby connection={connection}
+                                        ? <Lobby
                                             onJoined={(success) => {
 
                                                 if (!success) {
@@ -63,7 +43,7 @@ const App = () => {
                                                 }
                                                 setInRoom(success)
                                             }} />
-                                        : <Chats connection={connection} messages={messages} />}
+                                        : <Chats messages={messages} />}
                                 </>}
                         </Box>
                     </Container>
