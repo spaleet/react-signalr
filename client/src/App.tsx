@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import { buildConnection, startConnection } from './utils/hubUtils';
 import { Message } from './models/Message';
+import { UserContextProvider } from './contexts/UserContext';
 
 const App = () => {
 
     const [connection, setConnection] = useState<HubConnection>();
     const [inRoom, setInRoom] = useState(false);
     const [messages, setMessages] = useState<Message[]>([]);
+    const [username, setUsername] = useState("");
 
     const [errorAlertOpen, setErrorAlertOpen] = useState(false);
 
@@ -43,28 +45,31 @@ const App = () => {
 
     return (
         <>
-            <Box sx={{ width: "100%", height: '100vh' }}>
-                <Container>
-                    <Box sx={{
-                        minWidth: "100%", minHeight: "100vh", padding: "20px",
-                        display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
-                    }}>
-                        {connection &&
-                            <>
-                                {!inRoom
-                                    ? <Lobby connection={connection}
-                                        onJoined={(success) => {
+            <UserContextProvider>
+                <Box sx={{ width: "100%", height: '100vh' }}>
+                    <Container>
+                        <Box sx={{
+                            minWidth: "100%", minHeight: "100vh", padding: "20px",
+                            display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
+                        }}>
+                            {connection &&
+                                <>
+                                    {!inRoom
+                                        ? <Lobby connection={connection}
+                                            onJoined={(success) => {
 
-                                            if (!success) {
-                                                setErrorAlertOpen(true)
-                                            }
-                                            setInRoom(success)
-                                        }} />
-                                    : <Chats connection={connection} messages={messages} />}
-                            </>}
-                    </Box>
-                </Container>
-            </Box>
+                                                if (!success) {
+                                                    setErrorAlertOpen(true)
+                                                }
+                                                setInRoom(success)
+                                            }} />
+                                        : <Chats connection={connection} messages={messages} />}
+                                </>}
+                        </Box>
+                    </Container>
+                </Box>
+            </UserContextProvider>
+
 
             <Snackbar open={errorAlertOpen} autoHideDuration={1500}>
                 <Alert severity="error" sx={{ width: '100%' }} variant="filled">

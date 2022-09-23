@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, TextField, Fab } from '@mui/material';
+import { Grid, TextField, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 interface SendMessageProps {
@@ -23,17 +23,17 @@ const SendMessage = (props: SendMessageProps) => {
             component="form"
             onSubmit={handleSubmit}
         >
-            <Grid item xs={11}>
+            <Grid item xs={10}>
                 <TextField
                     multiline maxRows={4} required
                     label="Message" fullWidth
                     onChange={e => setMessage(e.target.value)}
                     value={message} />
             </Grid>
-            <Grid xs={1} sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
-                <Fab color="primary" size="small" type='submit'>
-                    <SendIcon sx={{ fontSize: '20px' }} />
-                </Fab>
+            <Grid xs={2} sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
+                <Button variant="contained" endIcon={<SendIcon />} type='submit'>
+                    Send
+                </Button>
             </Grid>
         </Grid>
     )

@@ -1,10 +1,11 @@
 import { Message } from '../../models/Message';
-import { Paper, Typography, Grid, Box, Divider, Button } from '@mui/material';
+import { Paper, Typography, Grid, Box, Divider, Button, IconButton } from '@mui/material';
 import MessageItem from './components/MessageItem';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import SendMessage from './components/SendMessage';
-import Rooms from './components/Rooms';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useContext } from 'react'
+import { UserContext } from '../../contexts/UserContext'
 
 const randomBool = () => {
   return Math.random() < 0.5;
@@ -17,13 +18,13 @@ interface ChatsProps {
 
 const Chats = (props: ChatsProps) => {
 
+  const userCtx = useContext(UserContext);
+
   const onSendMessage = async (message: string) => {
     try {
-      console.log("here");
-
       await props.connection.invoke("SendMessage", message)
     } catch (e) {
-      console.log(e);
+      console.log("Send Message failed! ERROR : ", e);
     }
   }
 
@@ -31,7 +32,7 @@ const Chats = (props: ChatsProps) => {
     try {
       await props.connection.stop();
     } catch (e) {
-      console.log(e);
+      console.log("Leave room failed! ERROR : ", e);
     }
   }
 
@@ -39,31 +40,52 @@ const Chats = (props: ChatsProps) => {
     <Grid container component={Paper} direction="row" sx={{
       p: 3, boxShadow: 2,
       width: "100%",
-      borderRadius: '1.3rem', height: '80vh'
+      borderRadius: '1.3rem', height: { xs: '90vh', md: '80vh' }
     }} spacing={2}>
 
-      <Grid item xs={12} sx={{ display: 'center', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
-
-        <Button color='error' variant='contained' onClick={() => leaveRoom()}>
-          Leave Room
-        </Button>
+      <Grid item xs={12}
+        sx={{
+          display: 'center', alignItems: 'center',
+          justifyContent: 'space-between', mb: 2, paddingLeft: '0px !important'
+        }}
+      >
+        <IconButton color='error' onClick={() => leaveRoom()}>
+          <ArrowBackIosIcon />
+        </IconButton>
 
         <Typography variant="h5" color="primary.main">
-          Chats!
+          {userCtx?.username}
         </Typography>
 
       </Grid>
 
-      <Rooms />
+      {/* <Rooms /> */}
 
-      <Grid item xs={9} sx={{ border: '1px solid rgba(0, 0, 0, 0.12)', paddingTop: '0px !important' }}>
-        <Box sx={{ height: '58vh' }} className="message-container">
+      <Grid item xs={12}
+        sx={{
+          border: '1px solid rgba(0, 0, 0, 0.12)',
+          paddingTop: '0px !important',
+          borderRadius: '10px'
+        }}>
+
+        <Box
+          className="message-container"
+          sx={{
+            height: {
+              md: '58vh',
+              sm: '50vh',
+              xs: '65vh',
+              lg: '58vh'
+            }
+          }}>
+
           {props.messages.map((item, index) => (
             <MessageItem key={index} msg={item} sent={randomBool()} />
           ))}
+
         </Box>
 
-        <Divider />
+        <Divider sx={{ marginRight: '16px' }} />
 
         <SendMessage onSendMessage={onSendMessage} />
 

@@ -1,8 +1,9 @@
 import { Box, Button, TextField, Paper, Typography, Avatar, Backdrop, CircularProgress } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import { HubConnection } from '@microsoft/signalr/dist/esm/HubConnection';
 import ChatDivider from '../../components/ChatDivider';
+import { UserContext } from '../../contexts/UserContext'
 
 interface LobbyProps {
     connection: HubConnection
@@ -10,6 +11,8 @@ interface LobbyProps {
 }
 
 const Lobby = (props: LobbyProps) => {
+
+    const userCtx = useContext(UserContext);
 
     const [username, setUsername] = useState("");
     const [room, setRoom] = useState("");
@@ -22,9 +25,12 @@ const Lobby = (props: LobbyProps) => {
         setOpen(true);
 
         props.connection.invoke("JoinRoom", { username, roomId: room })
-            .then(() => props.onJoined(true))
+            .then(() => {
+                userCtx?.setUsername(username)
+                props.onJoined(true)
+            })
             .catch((e) => {
-                console.log("Join room failed. : ", e);
+                console.log("Join room failed! ERROR : ", e);
                 props.onJoined(false);
             })
             .finally(() => setOpen(false));
