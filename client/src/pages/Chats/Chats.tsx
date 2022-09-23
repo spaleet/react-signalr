@@ -50,7 +50,7 @@ const Chats = (props: ChatsProps) => {
         </IconButton>
 
         <Typography variant="h5" color="primary.main">
-          {userCtx?.username}
+          {userCtx?.roomId}
         </Typography>
 
       </Grid>

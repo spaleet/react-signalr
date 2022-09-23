@@ -27,6 +27,7 @@ const Lobby = (props: LobbyProps) => {
         props.connection.invoke("JoinRoom", { username, roomId: room })
             .then(() => {
                 userCtx?.setUsername(username)
+                userCtx?.setRoomId(room)
                 props.onJoined(true)
             })
             .catch((e) => {
