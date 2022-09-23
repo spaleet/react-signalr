@@ -5,11 +5,11 @@ import ChatDivider from '../../components/ChatDivider';
 import { UserContext } from '../../contexts/UserContext'
 import { HubContext } from '../../contexts/HubContext';
 
-interface LobbyProps {
+interface LoginProps {
     onJoined: (success: boolean) => void
 }
 
-const Lobby = (props: LobbyProps) => {
+const Login = (props: LoginProps) => {
 
     const userCtx = useContext(UserContext);
     const hubCtx = useContext(HubContext);
@@ -86,4 +86,4 @@ const Lobby = (props: LobbyProps) => {
     )
 }
 
-export default Lobby
+export default Login

@@ -1,7 +1,6 @@
-import { Lobby, Chats } from './pages/_index';
-import { Box, Container, Grid, Snackbar, Alert } from '@mui/material';
+import { Login, Chats } from './pages/_index';
+import { Box, Container, Snackbar, Alert } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
-import { Message } from './models/Message';
 import { UserContextProvider } from './contexts/UserContext';
 import { HubContext } from './contexts/HubContext';
 
@@ -10,8 +9,6 @@ const App = () => {
     const hubCtx = useContext(HubContext);
 
     const [inRoom, setInRoom] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([]);
-
     const [errorAlertOpen, setErrorAlertOpen] = useState(false);
 
     useEffect(() => {
@@ -35,7 +32,7 @@ const App = () => {
                             {hubCtx?.connection !== null &&
                                 <>
                                     {!inRoom
-                                        ? <Lobby
+                                        ? <Login
                                             onJoined={(success) => {
 
                                                 if (!success) {
@@ -43,7 +40,8 @@ const App = () => {
                                                 }
                                                 setInRoom(success)
                                             }} />
-                                        : <Chats messages={messages} />}
+
+                                        : <Chats />}
                                 </>}
                         </Box>
                     </Container>

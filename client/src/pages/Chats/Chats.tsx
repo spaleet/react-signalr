@@ -7,11 +7,7 @@ import { useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 import { HubContext } from '../../contexts/HubContext';
 
-interface ChatsProps {
-  messages: Message[]
-}
-
-const Chats = (props: ChatsProps) => {
+const Chats = () => {
 
   const hubCtx = useContext(HubContext);
   const userCtx = useContext(UserContext);
@@ -75,7 +71,7 @@ const Chats = (props: ChatsProps) => {
             }
           }}>
 
-          {props.messages.map((item, index) => (
+          {hubCtx?.messages.map((item, index) => (
             <MessageItem key={index} msg={item} />
           ))}
 

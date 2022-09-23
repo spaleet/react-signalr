@@ -34,11 +34,11 @@ export const HubContextProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
 
         if (connection) {
-            console.log("not null");
 
             startConnection(connection)
                 .then(() => {
                     setConnectionStarted(true)
+                    
                     connection.on("ReceiveMessage", (username, message) => {
                         setMessages(messages => [...messages, { username, message }]);
                     });
