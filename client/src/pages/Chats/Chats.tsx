@@ -7,10 +7,6 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useContext } from 'react'
 import { UserContext } from '../../contexts/UserContext'
 
-const randomBool = () => {
-  return Math.random() < 0.5;
-}
-
 interface ChatsProps {
   connection: HubConnection
   messages: Message[]
@@ -72,15 +68,15 @@ const Chats = (props: ChatsProps) => {
           className="message-container"
           sx={{
             height: {
-              md: '58vh',
+              md: '49vh',
               sm: '50vh',
               xs: '65vh',
-              lg: '58vh'
+              lg: '58vh',
             }
           }}>
 
           {props.messages.map((item, index) => (
-            <MessageItem key={index} msg={item} sent={randomBool()} />
+            <MessageItem key={index} msg={item} />
           ))}
 
         </Box>
