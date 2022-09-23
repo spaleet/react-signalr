@@ -2,8 +2,7 @@ import { Box, Button, TextField, Paper, Typography, Avatar, Backdrop, CircularPr
 import React, { useState, useContext } from 'react';
 import SendIcon from '@mui/icons-material/Send';
 import ChatDivider from '../../components/ChatDivider';
-import { UserContext } from '../../contexts/UserContext'
-import { HubContext } from '../../contexts/HubContext';
+import { HubContext, UserContext } from '../../contexts/_index';
 
 interface LoginProps {
     onJoined: (success: boolean) => void

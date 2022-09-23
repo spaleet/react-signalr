@@ -1,8 +1,7 @@
 import { Login, Chats } from './pages/_index';
 import { Box, Container, Snackbar, Alert } from '@mui/material';
 import { useState, useEffect, useContext } from 'react';
-import { UserContextProvider } from './contexts/UserContext';
-import { HubContext } from './contexts/HubContext';
+import { HubContext, UserContextProvider } from './contexts/_index';
 
 const App = () => {
 

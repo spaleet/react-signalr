@@ -1,13 +1,11 @@
-import { Message } from '../../models/Message';
+import { useContext } from 'react'
 import { Paper, Typography, Grid, Box, Divider, IconButton } from '@mui/material';
 import MessageItem from './components/MessageItem';
 import SendMessage from './components/SendMessage';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useContext } from 'react'
-import { UserContext } from '../../contexts/UserContext'
-import { HubContext } from '../../contexts/HubContext';
+import { HubContext, UserContext } from '../../contexts/_index';
 
-const Chats = () => {
+const ChatRoom = () => {
 
   const hubCtx = useContext(HubContext);
   const userCtx = useContext(UserContext);
@@ -37,7 +35,7 @@ const Chats = () => {
 
       <Grid item xs={12}
         sx={{
-          display: 'center', alignItems: 'center',
+          display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', mb: 2, paddingLeft: '0px !important'
         }}
       >
@@ -87,4 +85,4 @@ const Chats = () => {
   )
 }
 
-export default Chats
+export default ChatRoom
