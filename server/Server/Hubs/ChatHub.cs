@@ -19,6 +19,7 @@ public class ChatHub : Hub<IChatClient>
         await Groups.AddToGroupAsync(Context.ConnectionId, userConnection.RoomId);
         _connections[Context.ConnectionId] = userConnection;
 
+        await SendUsersConnected(userConnection.RoomId);
         await Clients.Group(userConnection.RoomId)
                      .ReceiveMessage(_botUser, $"{userConnection.Username} has joined {userConnection.RoomId}");
 
@@ -33,12 +34,24 @@ public class ChatHub : Hub<IChatClient>
         }
     }
 
+    public async Task SendUsersConnected(string roomId)
+    {
+        string[] users = _connections.Values
+            .Where(c => c.RoomId == roomId)
+            .Select(c => c.Username)
+            .ToArray();
+
+        await Clients.Group(roomId).ReceiveUsersInRoom(users);
+    }
+
+
     public override Task OnDisconnectedAsync(Exception? exception)
     {
         if (_connections.TryGetValue(Context.ConnectionId, out var userConnection))
         {
             _connections.Remove(Context.ConnectionId);
             Clients.Group(userConnection.RoomId).ReceiveMessage(_botUser, $"{userConnection.Username} has left");
+            SendUsersConnected(userConnection.RoomId).Wait();
         }
 
         return base.OnDisconnectedAsync(exception);
