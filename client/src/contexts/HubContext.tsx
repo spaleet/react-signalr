@@ -11,6 +11,7 @@ interface IHubContext {
     setMessages: (messages: Message[]) => void;
 
     connectionStarted: boolean
+    connectedUsers: string[]
 }
 
 export const HubContext = createContext<IHubContext | null>(null)
@@ -19,6 +20,7 @@ export const HubContextProvider = ({ children }: { children: ReactNode }) => {
 
     const [connection, setConnection] = useState<HubConnection>();
     const [messages, setMessages] = useState<Message[]>([]);
+    const [connectedUsers, setConnectedUsers] = useState<string[]>([]);
     const [connectionStarted, setConnectionStarted] = useState(false);
 
     const startNewConnection = () => {
@@ -38,11 +40,13 @@ export const HubContextProvider = ({ children }: { children: ReactNode }) => {
             startConnection(connection)
                 .then(() => {
                     setConnectionStarted(true)
-                    
+
                     connection.on("ReceiveMessage", (username, message) => {
                         setMessages(messages => [...messages, { username, message }]);
                     });
-
+                    connection.on("ReceiveUsersInRoom", (connectedUsers) => {
+                        setConnectedUsers(connectedUsers);
+                    });
                     connection.onclose(() => {
                         startNewConnection();
                     });
@@ -51,7 +55,7 @@ export const HubContextProvider = ({ children }: { children: ReactNode }) => {
     }, [connection]);
 
     return (
-        <HubContext.Provider value={{ connection, setConnection, connectionStarted, messages, setMessages }}>
+        <HubContext.Provider value={{ connection, setConnection, connectionStarted, messages, setMessages, connectedUsers }}>
             {children}
         </HubContext.Provider>
     );

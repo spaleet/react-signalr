@@ -30,7 +30,7 @@ const SendMessage = (props: SendMessageProps) => {
                     onChange={e => setMessage(e.target.value)}
                     value={message} />
             </Grid>
-            <Grid xs={2} sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
+            <Grid item xs={2} sx={{ display: 'flex', justifyContent: "center", alignItems: 'center' }}>
                 <Button variant="contained" endIcon={<SendIcon />} type='submit'>
                     Send
                 </Button>
