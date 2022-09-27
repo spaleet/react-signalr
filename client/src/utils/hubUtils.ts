@@ -10,13 +10,11 @@ export function buildConnection(): HubConnection {
 
     return connection;
 }
-export async function startConnection(connection: HubConnection): Promise<boolean> {
+export async function startConnection(connection: HubConnection): Promise<void> {
     try {
         await connection.start();
         console.log('Connected!');
-        return true;
     } catch (e) {
         console.log('Connection failed: ', e)
-        return false;
     }
 }

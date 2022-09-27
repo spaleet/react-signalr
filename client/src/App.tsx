@@ -8,7 +8,7 @@ const App = () => {
     const hubCtx = useContext(HubContext);
 
     const [inRoom, setInRoom] = useState(false);
-    const [errorAlertOpen, setErrorAlertOpen] = useState(false);
+    const [alertOpen, setAlertOpen] = useState(false);
 
     useEffect(() => {
 
@@ -30,17 +30,16 @@ const App = () => {
                         }}>
                             {hubCtx?.connection !== null &&
                                 <>
-                                    {!inRoom
-                                        ? <Login
+                                    {inRoom ? <ChatRoom /> :
+                                        <Login
                                             onJoined={(success) => {
 
                                                 if (!success) {
-                                                    setErrorAlertOpen(true)
+                                                    setAlertOpen(true)
                                                 }
                                                 setInRoom(success)
                                             }} />
-
-                                        : <ChatRoom />}
+                                    }
                                 </>}
                         </Box>
                     </Container>
@@ -48,7 +47,7 @@ const App = () => {
             </UserContextProvider>
 
 
-            <Snackbar open={errorAlertOpen} autoHideDuration={1500}>
+            <Snackbar open={alertOpen} autoHideDuration={1500}>
                 <Alert severity="error" sx={{ width: '100%' }} variant="filled">
                     Couldn't join the room!
                 </Alert>

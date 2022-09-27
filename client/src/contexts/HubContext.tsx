@@ -5,12 +5,9 @@ import { buildConnection, startConnection } from '../utils/hubUtils';
 
 interface IHubContext {
     connection?: HubConnection
-    setConnection: (connection: HubConnection) => void;
+    connectionStarted: boolean
 
     messages: Message[]
-    setMessages: (messages: Message[]) => void;
-
-    connectionStarted: boolean
     connectedUsers: string[]
 }
 
@@ -55,7 +52,7 @@ export const HubContextProvider = ({ children }: { children: ReactNode }) => {
     }, [connection]);
 
     return (
-        <HubContext.Provider value={{ connection, setConnection, connectionStarted, messages, setMessages, connectedUsers }}>
+        <HubContext.Provider value={{ connection, connectionStarted, messages, connectedUsers }}>
             {children}
         </HubContext.Provider>
     );

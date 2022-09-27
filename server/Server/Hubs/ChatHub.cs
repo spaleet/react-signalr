@@ -45,16 +45,16 @@ public class ChatHub : Hub<IChatClient>
     }
 
 
-    public override Task OnDisconnectedAsync(Exception? exception)
+    public override async Task OnDisconnectedAsync(Exception? exception)
     {
         if (_connections.TryGetValue(Context.ConnectionId, out var userConnection))
         {
             _connections.Remove(Context.ConnectionId);
-            Clients.Group(userConnection.RoomId).ReceiveMessage(_botUser, $"{userConnection.Username} has left");
-            SendUsersConnected(userConnection.RoomId).Wait();
+            await Clients.Group(userConnection.RoomId).ReceiveMessage(_botUser, $"{userConnection.Username} has left");
+            await SendUsersConnected(userConnection.RoomId);
         }
 
-        return base.OnDisconnectedAsync(exception);
+        await base.OnDisconnectedAsync(exception);
     }
 
 }
