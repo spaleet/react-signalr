@@ -1,5 +1,5 @@
 # react-signalr
-Chat application built with react and signalr (.net 6)
+This is a chat application built using React and SignalR in .NET 6. Users can create accounts, log in, and chat in real-time with each other. The app also includes functionality for deleting messages and joining rooms.
 
 
 ## Prerequisites
