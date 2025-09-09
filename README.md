@@ -1,9 +1,9 @@
 # react-signalr
-This is a chat application built using React and SignalR in .NET 6. Users can create accounts, log in, and chat in real-time with each other. The app also includes functionality for deleting messages and joining rooms.
+This is a chat application built using React and SignalR in .NET 9. Users can create accounts and rooms and chat in real-time with each other. Also bear in mind this is a very basic chat app.
 
 
 ## Prerequisites
-1. Install the latest [.NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
+1. Install the latest [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 2. Install the latest [Node.js LTS](https://nodejs.org/en/)
 
 ## Installation
@@ -18,7 +18,7 @@ Start **client**:
 ```bash
 cd /client
 npm install
-npm start
+npm run dev
 ```
 Start **server**:
 ```bash
@@ -28,12 +28,7 @@ dotnet run
 
 ---
 
-## Screenshots
+## Sample
 
-### Login Page:
 
-<img src="/docs/01_login.png" alt="Login Page" height="500" width="500" />
-
-### Chat Page:
-
-<img src="/docs/02_chat.png" alt="Chat Page" />
+![chat sample](/docs/sample.gif)
