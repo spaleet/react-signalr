@@ -1,12 +1,10 @@
-import { useEffect, useRef, useContext } from 'react'
-import { Paper, Typography, Grid, Box, Divider, IconButton } from '@mui/material';
-import MessageItem from './components/MessageItem';
-import SendMessage from './components/SendMessage';
-import Users from './components/Users';
-import { ArrowBackIos } from '@mui/icons-material';
+import { useState, useRef, useEffect, useContext } from "react";
+import { Box, Typography, Paper, Button, Menu, MenuItem } from "@mui/material";
+import PeopleIcon from "@mui/icons-material/People";
 import { HubContext, UserContext } from '../../contexts/_index';
+import { MessageItem, SendMessage } from './components/_index';
 
-const ChatRoom = () => {
+export default function ChatRoom() {
 
   const hubCtx = useContext(HubContext);
   const userCtx = useContext(UserContext);
@@ -27,70 +25,104 @@ const ChatRoom = () => {
     }
   }
 
-  const messageRef = useRef<HTMLDivElement>(null);
-
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
-    if (messageRef && messageRef.current) {
-      const { scrollHeight, clientHeight } = messageRef.current;
-      messageRef.current.scrollTo({ left: 0, top: scrollHeight - clientHeight });
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [hubCtx?.messages]);
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleUsersClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleUsersClose = () => setAnchorEl(null);
 
   return (
-    <Grid container component={Paper} direction="row" sx={{
-      p: 3, boxShadow: 2,
-      width: "100%",
-      borderRadius: '1.3rem', height: { xs: '90vh', md: '80vh' }
-    }} spacing={2}>
+    <Paper
+      elevation={12}
+      sx={{
+        width: { xs: "90%", md: "75%" },
+        height: { xs: "90%", md: "75%" },
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: 3,
+        overflow: "hidden",
+        bgcolor: "background.paper",
+        position: "relative",
+      }}
+    >
 
-      <Grid item xs={12}
-        sx={{
-          display: 'flex', alignItems: 'center',
-          justifyContent: 'space-between', mb: 2, paddingLeft: '0px !important'
-        }}
+      <Box
+        p={2}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        borderBottom={1}
+        borderColor="divider"
+        flexShrink={0}
       >
-        <IconButton color='error' onClick={() => leaveRoom()}>
-          <ArrowBackIos />
-        </IconButton>
-
-        <Typography variant="h5" color="primary.main">
+        <Typography variant="h6">
           {userCtx?.roomId}
         </Typography>
 
-      </Grid>
+        <Box display="flex" gap={1}>
 
-      <Users />
+          <Button
+            variant="outlined"
+            startIcon={<PeopleIcon />}
+            onClick={handleUsersClick}
+          >
+            Users ({hubCtx?.connectedUsers.length})
+          </Button>
 
-      <Grid item xs={12} md={9}
-        sx={{
-          border: '1px solid rgba(0, 0, 0, 0.12)',
-          paddingTop: '0px !important',
-          borderRadius: '10px',
-          height: '90%'
-        }}>
-
-        <Box
-          ref={messageRef}
-          className="message-container"
-          sx={{
-            height: '83%'
-          }}>
-
-          {hubCtx?.messages.map((item, index) => (
-            <MessageItem key={index} msg={item} />
-          ))}
-
+          <Button variant="outlined" color="error" onClick={() => leaveRoom()}>
+            Leave Room
+          </Button>
         </Box>
 
-        <Divider sx={{ marginRight: '16px' }} />
+        <Menu anchorEl={anchorEl} open={open} onClose={handleUsersClose}>
 
-        <SendMessage onSendMessage={onSendMessage} />
+          {hubCtx?.connectedUsers.map((item, index) => (
+            <MenuItem key={`user_${index}`}>{item}</MenuItem>
+          ))}
+        </Menu>
+      </Box>
 
-      </Grid>
+      <Box
+        sx={{
+          flexGrow: 1,
+          overflowY: "auto",
+          p: 2,
+          display: "flex",
+          flexDirection: "column",
+          minHeight: 0,
+          position: "relative",
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 40,
+            background:
+              "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0))",
+            pointerEvents: "none",
+            zIndex: 2,
+          }}
+        />
 
-    </Grid>
-  )
+
+        {hubCtx?.messages.map((item, index) => (
+          <MessageItem key={index} msg={item} />
+        ))}
+
+        <div ref={messagesEndRef} />
+      </Box>
+
+      <SendMessage onSendMessage={onSendMessage} />
+
+    </Paper>
+  );
 }
-
-export default ChatRoom

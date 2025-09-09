@@ -22,12 +22,19 @@ const App = () => {
     return (
         <>
             <UserContextProvider>
-                <Box sx={{ width: "100%", height: '100vh' }}>
-                    <Container>
-                        <Box sx={{
-                            minWidth: "100%", minHeight: "100vh", padding: "20px",
-                            display: "flex", flexDirection: "column", justifyContent: "center", alignItems: 'center',
-                        }}>
+                <Box sx={{ width: "100%", height: "100vh" }}>
+                    <Container sx={{ height: "100%" }}>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                height: "100%",
+                                padding: "20px",
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
                             {hubCtx?.connection !== null &&
                                 <>
                                     {inRoom ? <ChatRoom /> :
@@ -46,15 +53,14 @@ const App = () => {
                 </Box>
             </UserContextProvider>
 
-
             <Snackbar open={alertOpen} autoHideDuration={1500}>
-                <Alert severity="error" sx={{ width: '100%' }} variant="filled">
+                <Alert severity="error" sx={{ width: "100%" }} variant="filled">
                     Couldn't join the room!
                 </Alert>
             </Snackbar>
-
         </>
-    )
+    );
+
 };
 
 export default App
