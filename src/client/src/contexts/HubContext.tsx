@@ -1,7 +1,7 @@
 import { HubConnection } from "@microsoft/signalr";
 import { createContext, ReactNode, useState, useEffect } from "react";
 import { Message } from "../models/Message";
-import { buildConnection, startConnection } from '../utils/hubUtils';
+import { buildConnection, startConnection } from '@utils/hubUtils';
 
 interface IHubContext {
     connection?: HubConnection

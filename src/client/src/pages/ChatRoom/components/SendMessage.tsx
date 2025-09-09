@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Grid, TextField, Button, Box, IconButton } from '@mui/material';
+import { TextField, Box, IconButton } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 interface SendMessageProps {

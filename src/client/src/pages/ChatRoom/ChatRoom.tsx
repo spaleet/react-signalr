@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, useContext } from "react";
 import { Box, Typography, Paper, Button, Menu, MenuItem } from "@mui/material";
 import PeopleIcon from "@mui/icons-material/People";
-import { HubContext, UserContext } from '../../contexts/_index';
+import { HubContext, UserContext } from '@contexts/_index';
 import { MessageItem, SendMessage } from './components/_index';
 
 export default function ChatRoom() {

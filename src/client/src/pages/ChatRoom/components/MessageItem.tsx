@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import { Message } from './../../../models/Message';
+import { Message } from '@models/Message';
 import { Typography, Box, Paper } from '@mui/material';
-import { UserContext } from '../../../contexts/UserContext'
+import { UserContext } from '@contexts/UserContext'
 import { useTheme } from "@mui/material/styles";
 
 
