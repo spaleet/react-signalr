@@ -1,6 +1,6 @@
 # react-signalr
-This is a chat application built using React and SignalR in .NET 9. Users can create accounts and rooms and chat in real-time with each other. Also bear in mind this is a very basic chat app.
 
+This is a real-time chat application built using React 19 for the frontend and ASP.NET 9 with SignalR for the backend. The app supports instant messaging, multiple chat rooms, user presence indicators, and a responsive UI with React MUI.
 
 ## Prerequisites
 1. Install the latest [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
@@ -31,4 +31,5 @@ dotnet run
 ## Sample
 
 
-![chat sample](/docs/sample.gif)
+![chat sample](/docs/sample.png)
+[see the long video version](/docs/sample.mp4)
